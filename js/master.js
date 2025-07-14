@@ -77,10 +77,10 @@ function verInscriptos() {
 // 4. Mostrar estadísticas del sistema
 function muestraEstadisticas() {
   console.clear();
-  // Cantidad Inscriptos
-  let conteoCursos = {};
+  // Inicializa el contador de inscriptos por curso
+  let contadorCursos = {};
   for (let i = 0; i < cursos.length; i++) {
-    conteoCursos[cursos[i].nombre] = 0;
+    contadorCursos[cursos[i].nombre] = 0;
   }
 
   if (inscriptos.length === 0) {
@@ -90,12 +90,12 @@ function muestraEstadisticas() {
 
   for (let i = 0; i < inscriptos.length; i++) {
     let curso = inscriptos[i].curso;
-    conteoCursos[curso]++;
+    contadorCursos[curso]++;
   }
   console.log("Estadísticas de inscripción por curso:");
   // Cantidad inscriptos por curso
-  for (let curso in conteoCursos) {
-    console.log(`${curso}: ${conteoCursos[curso]} inscriptos.`);
+  for (let curso in contadorCursos) {
+    console.log(`${curso}: ${contadorCursos[curso]} inscriptos.`);
   }
   // Cantidad de inscriptos totales
   let totalInscriptos = inscriptos.length;
@@ -104,9 +104,9 @@ function muestraEstadisticas() {
   let cursoMasPopular = "";
   let maxInscriptos = 0;
   
-  for (let curso in conteoCursos) {
-    if (conteoCursos[curso] > maxInscriptos) {
-      maxInscriptos = conteoCursos[curso];
+  for (let curso in contadorCursos) {
+    if (contadorCursos[curso] > maxInscriptos) {
+      maxInscriptos = contadorCursos[curso];
       cursoMasPopular = curso;
     }
   }
