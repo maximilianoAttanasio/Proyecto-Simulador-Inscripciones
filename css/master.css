@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 20px;
+}
+
+/* === CSS Encabezado === */
+header {
+  background-color: #005f73;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+}
+
+/* === CSS Secciones === */
+section {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  border: 1px solid #ccc
+}
+
+section h2 {
+  margin-bottom: 15px;
+  color: #005f73;
+}
+
+/* === CSS Listas === */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 12px;
+  padding: 10px;
+  background-color: #e0f2f1;
+  border-radius: 5px;
+}
+
+/* === CSS Main === */
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #0a9396;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #007b82;
+}
+
+#mensaje-inscripcion {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #00796b;
+}
+
+#lista-cursos {
+  display: flex;
+  justify-content: space-between;
+}
+
+#lista-cursos li {
+  padding: 1rem 5rem;
+}
+
+.contenido-flex {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.fila-inscripcion-estadisticas {
+  display: flex;
+  gap: 20px;
+  margin: 30px 0;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+#inscripcion-section,
+#estadisticas-section {
+  flex: 1 1 48%;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* === CSS Footer === */
+footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  color: #777;
+  font-size: 0.9rem;
+}

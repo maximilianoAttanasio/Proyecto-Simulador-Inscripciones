@@ -22,131 +22,126 @@ let cursos = [
   },
 ];
 
-// Array para agregar a los alumnos que se inscriben
-let inscriptos = [];
+// Array para agregar a los alumnos que se inscriben o traerlos desde el localstorage
+let inscriptos = JSON.parse(localStorage.getItem("inscriptos")) || [];
+
+// "Capturamos" los elementos
+const listaCursos = document.getElementById("lista-cursos");
+const cursoSelect = document.getElementById("curso-select");
+const btnInscribirse = document.getElementById("btn-inscribirse");
+const mensajeInscripcion = document.getElementById("mensaje-inscripcion");
+const listaInscriptos = document.getElementById("lista-inscriptos");
+const estadisticasDiv = document.getElementById("estadisticas");
+const nombreAlumnoInput = document.getElementById("nombre-alumno");
 
 // Funciones
 // 1. Ver los cursos disponibles
 function mostrarCursos() {
-  console.clear(); // Limpia la pantalla
-  console.log("Estos son los cursos disponibles, ¿Hay alguno de tu interés?");
-  for (let i = 0; i < cursos.length; i++) {
-    console.log(`${i+1}. ${cursos[i].nombre} \n\tDuración: ${cursos[i].duracion} \n\tPrecio: ${cursos[i].precio}`);
-  }
+  listaCursos.innerHTML = "";
+
+  cursos.forEach((curso, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <p><strong>${i + 1}. ${curso.nombre}</strong></p>
+    <p>Duración: ${curso.duracion}</p>
+    <p>Precio: $${curso.precio}</p>
+  `;
+    li.classList.add("curso-item");
+    listaCursos.appendChild(li);
+  });
 }
 
 // 2. Inscribir a un alumno
-function inscribirAlumno() {
-  mostrarCursos();
-  let cursoSeleccionado = prompt("Por favor seleccione un curso");
-  if (cursoSeleccionado === null) return; // Retorna en caso que el usuario seleccione "cancelar"
-  let indice = parseInt(cursoSeleccionado) - 1;
-  if (!isNaN(indice) && indice >= 0 && indice < cursos.length) {
-    let datosAlumno = prompt("Ingrese su nombre:");
-    if (datosAlumno === null) return;
-    datosAlumno = datosAlumno.trim();
-    if (!datosAlumno) {
-      alert("Nombre inválido. No se pudo completar la inscripción.");
-      return;
-    }
-    alert(
-      `${datosAlumno}, te inscribiste exitosamente al curso: ${cursos[indice].nombre}. ¡Te deseamos lo mejor en tu aprendizaje!`
-    );
-    inscriptos.push({
-      nombreAlumno: datosAlumno,
-      curso: cursos[indice].nombre,
-    });
-  } else {
-    alert("Curso no disponible.");
-  }
+function cargarCursosEnSelect() {
+  cursoSelect.innerHTML = "";
+  cursos.forEach((curso, i) => {
+    const opcion = document.createElement("option");
+    opcion.value = i;
+    opcion.textContent = curso.nombre;
+    cursoSelect.appendChild(opcion);
+  });
 }
+
+btnInscribirse.addEventListener("click", () => {
+  const nombre = nombreAlumnoInput.value.trim();
+  const indiceCurso = cursoSelect.value;
+
+  if (!nombre) {
+    mensajeInscripcion.textContent = "Por favor, ingrese un nombre válido.";
+    return;
+  }
+
+  const cursoElegido = cursos[indiceCurso];
+  inscriptos.push({ nombreAlumno: nombre, curso: cursoElegido.nombre });
+
+  // Guardamos en el localstorage
+  localStorage.setItem("inscriptos", JSON.stringify(inscriptos));
+
+  mensajeInscripcion.textContent = `${nombre}, te inscribiste exitosamente al curso: ${cursoElegido.nombre}. ¡Te deseamos lo mejor en tu aprendizaje!`;
+  nombreAlumnoInput.value = ""; // Limpia el Input
+
+  // Recarga las listas
+  verInscriptos();
+  muestraEstadisticas();
+});
 
 // 3. Ver alumnos inscriptos
 function verInscriptos() {
-  console.clear();
+  listaInscriptos.innerHTML = "";
+
   if (inscriptos.length === 0) {
-    console.log("No hay alumnos inscriptos.");
-  } else {
-    console.log("Alumnos Inscriptos:");
-    for (let i = 0; i < inscriptos.length; i++) {
-      console.log(`${i+1}. Nombre del alumno: ${inscriptos[i].nombreAlumno} \nCurso: ${inscriptos[i].curso}`);
-    }
+    listaInscriptos.textContent = "No hay alumnos inscriptos.";
+    return;
   }
+
+  inscriptos.forEach((inscripto, i) => {
+    const li = document.createElement("li");
+    li.textContent = `${i + 1}. ${inscripto.nombreAlumno} | Curso: ${inscripto.curso}`;
+    listaInscriptos.appendChild(li);
+  });
 }
 
 // 4. Mostrar estadísticas del sistema
 function muestraEstadisticas() {
-  console.clear();
-  // Inicializa el contador de inscriptos por curso
-  let contadorCursos = {};
-  for (let i = 0; i < cursos.length; i++) {
-    contadorCursos[cursos[i].nombre] = 0;
-  }
+  estadisticasDiv.innerHTML = "";
 
   if (inscriptos.length === 0) {
-    console.log("No hay inscriptos aún. No hay estadísticas para mostrar.");
+    estadisticasDiv.textContent = "No hay estadísticas para mostrar.";
     return;
   }
 
-  for (let i = 0; i < inscriptos.length; i++) {
-    let curso = inscriptos[i].curso;
-    contadorCursos[curso]++;
-  }
-  console.log("Estadísticas de inscripción por curso:");
-  // Cantidad inscriptos por curso
-  for (let curso in contadorCursos) {
-    console.log(`${curso}: ${contadorCursos[curso]} inscriptos.`);
-  }
-  // Cantidad de inscriptos totales
+  const contadorCursos = {};
+  cursos.forEach((curso) => (contadorCursos[curso.nombre] = 0));
+
+  inscriptos.forEach((inscripto) => {
+    contadorCursos[inscripto.curso]++;
+  });
+
   let totalInscriptos = inscriptos.length;
-  console.log(`\nTotal de alumnos inscriptos: ${totalInscriptos}.`);
-  // Curso con más inscriptos
   let cursoMasPopular = "";
   let maxInscriptos = 0;
-  
+
+  let listaDeEstadisticas = "";
   for (let curso in contadorCursos) {
+    listaDeEstadisticas += `<li>${curso}: ${contadorCursos[curso]} inscriptos</li>`;
     if (contadorCursos[curso] > maxInscriptos) {
       maxInscriptos = contadorCursos[curso];
       cursoMasPopular = curso;
     }
   }
-  console.log(`\nEl curso más elegido es ${cursoMasPopular} con ${maxInscriptos} inscriptos.`);
+
+  estadisticasDiv.innerHTML = `
+  <p><strong>Estadísticas de inscripción por curso:</strong></p>
+  <ul>${listaDeEstadisticas}</ul>
+  <p>Total de alumnos inscriptos: ${totalInscriptos}.</p>
+  <p>El curso más elegido es <strong>${cursoMasPopular}</strong> con ${maxInscriptos} inscriptos.</p>
+`;
+
+  // estadisticasDiv.innerHTML = estadisticasHTML;
 }
 
-// Pantalla Inicial
-let opcion;
-do {
-  opcion = prompt(
-    "Simulador de inscripción a cursos:\n\n" +
-      "1. Ver cursos.\n" +
-      "2. Inscribirse.\n" +
-      "3. Ver inscriptos.\n" +
-      "4. Ver estadísticas del sistema.\n" +
-      "5. Salir\n"
-  );
-
-  switch (opcion) {
-    case "1":
-      mostrarCursos();
-      break;
-    case "2":
-      inscribirAlumno();
-      break;
-    case "3":
-      verInscriptos();
-      break;
-    case "4":
-      muestraEstadisticas();
-      break;
-    case "5":
-      if (confirm("¿Está seguro que desea salir del simulador?")) {
-        alert("Gracias por utilizar el simulador.");
-      } else {
-        opcion = null; // Para evitar la salida del bucle
-      }
-      break;
-    default:
-      alert("Por favor ingrese una opción válida.");
-      break;
-  }
-} while (opcion != "5");
+// Cargar todo al inicio
+mostrarCursos();
+cargarCursosEnSelect();
+verInscriptos();
+muestraEstadisticas();

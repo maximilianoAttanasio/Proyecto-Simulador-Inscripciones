@@ -3,11 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/master.css" />
     <title>Simulador de Inscripción</title>
   </head>
   <body>
-    <h1>Simulador de inscripción a cursos</h1>
-    <p>Este simulador permite al usuario conocer los cursos disponibles e inscribirse según su edad. Toda la interacción se realiza mediante la consola y cuadros de diálogo del navegador.</p>
+    <header>
+      <h1>Simulador de inscripción a cursos</h1>
+    </header>
+    <main>
+      <section id="cursos-section">
+        <h2>Estos son los cursos disponibles, ¿Hay alguno de tu interés?</h2>
+        <ul id="lista-cursos"></ul>
+      </section>
+
+      <div class="fila-inscripcion-estadisticas">
+        <section id="inscripcion-section">
+          <h2>Inscribirse a un curso</h2>
+          <label for="nombre-alumno">Nombre del alumno:</label>
+          <input type="text" id="nombre-alumno" />
+
+          <label for="curso-select">Seleccione un curso:</label>
+          <select id="curso-select"></select>
+
+          <button id="btn-inscribirse">Inscribirse</button>
+          <p id="mensaje-inscripcion"></p>
+        </section>
+
+        <section id="estadisticas-section">
+          <h2>Estadísticas</h2>
+          <div id="estadisticas"></div>
+        </section>
+      </div>
+
+      <section id="inscriptos-section">
+        <h2>Alumnos Inscriptos</h2>
+        <ul id="lista-inscriptos"></ul>
+      </section>
+    </main>
+    <footer>CoderSchool 2025 &copy; Todos los derechos reservados</footer>
 
     <script src="./js/master.js"></script>
   </body>
