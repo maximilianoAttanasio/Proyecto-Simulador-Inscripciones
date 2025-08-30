@@ -32,7 +32,7 @@ section {
   padding: 20px;
   margin-bottom: 25px;
   border-radius: 8px;
-  border: 1px solid #ccc
+  border: 1px solid #ccc;
 }
 
 section h2 {
@@ -71,6 +71,8 @@ select {
 }
 
 button {
+  width: fit-content;
+  height: 100%;
   padding: 10px 20px;
   background-color: #0a9396;
   color: white;
@@ -87,16 +89,27 @@ button:hover {
 #mensaje-inscripcion {
   margin-top: 10px;
   font-weight: bold;
-  color: #00796b;
+}
+
+#mensaje-inscripcion.error {
+  color: red;
+}
+
+#mensaje-inscripcion.success {
+  color: green;
 }
 
 #lista-cursos {
   display: flex;
-  justify-content: space-between;
+  gap: 1rem;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 
 #lista-cursos li {
-  padding: 1rem 5rem;
+  padding: 1rem 3rem;
+  flex: 0 0 auto;
+  min-width: 200px;
 }
 
 .contenido-flex {
@@ -119,6 +132,49 @@ button:hover {
   flex: 1 1 48%;
   padding: 15px;
   border-radius: 8px;
+}
+
+#lista-inscriptos li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 5rem;
+}
+
+#lista-inscriptos button:hover {
+  background-color: rgb(184, 28, 28);
+}
+
+.inscriptos-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#buscador-inscriptos,
+#orden-inscriptos,
+#filtro-curso {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  flex: 1 1 150px; /* se adapta al tamaño disponible */
+}
+
+#contador-resultados {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #005f73;
+}
+
+#buscador-inscriptos:focus,
+#orden-inscriptos:focus,
+#filtro-curso:focus {
+  outline: none;
+  border-color: #005f73; /* más oscuro al hacer foco */
+  box-shadow: 0 0 6px rgba(0, 95, 115, 0.3);
 }
 
 /* === CSS Footer === */

@@ -22,6 +22,9 @@
           <label for="nombre-alumno">Nombre del alumno:</label>
           <input type="text" id="nombre-alumno" />
 
+          <label for="documento-alumno">Documento:</label>
+          <input type="number" id="documento-alumno" min="0" />
+
           <label for="curso-select">Seleccione un curso:</label>
           <select id="curso-select"></select>
 
@@ -36,12 +39,25 @@
       </div>
 
       <section id="inscriptos-section">
-        <h2>Alumnos Inscriptos</h2>
+        <div class="inscriptos-header">
+          <input type="text" id="buscador-inscriptos" placeholder="Buscar inscripto...">
+          <select id="orden-inscriptos">
+            <option value="">Ordenar por...</option>
+            <option value="nombre">Ordenar por Nombre</option>
+            <option value="documento">Ordenar por Documento</option>
+          </select>
+          <select id="filtro-curso"></select>
+        </div>
+        <p id="contador-resultados"></p>
         <ul id="lista-inscriptos"></ul>
       </section>
     </main>
-    <footer>CoderSchool 2025 &copy; Todos los derechos reservados</footer>
+    <footer>
+      <p>¿Magia Negra? No, Programación 😁</p>
+      <p>CoderSchool 2025 &copy; Todos los derechos reservados</p>
+    </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/master.js"></script>
   </body>
 </html>

@@ -1,0 +1,9 @@
+[
+  { "nombre": "Desarrollo Web", "duracion": "3 meses", "precio": 30000 },
+  { "nombre": "Marketing Digital", "duracion": "2 meses", "precio": 25000 },
+  { "nombre": "Diseño Gráfico", "duracion": "4 meses", "precio": 28000 },
+  { "nombre": "Desarrollo de Videojuegos", "duracion": "5 meses", "precio": 50000 },
+  { "nombre": "Data analytics", "duracion": "5 meses", "precio": 45000 },
+  { "nombre": "Ciberseguridad", "duracion": "6 meses", "precio": 60000 },
+  { "nombre": "Animación 3D", "duracion": "6 meses", "precio": 55000 }
+]
