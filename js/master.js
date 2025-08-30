@@ -4,7 +4,7 @@ let cursos = [];
 // Array para agregar a los alumnos que se inscriben o traerlos desde el localstorage
 let inscripciones = JSON.parse(localStorage.getItem("inscripciones")) || [];
 
-fetch("../data/cursos.json")
+fetch("./data/cursos.json")
   .then(response => response.json())
   .then(data => {
     cursos = data;
